@@ -13,8 +13,8 @@ const MOCKED_SCENARIOS = [
             grossMargin: '74.0%', // Margen menor
         },
         alerts: [
-            { type: 'Stockout Warning', message: 'Posible escasez en Q4 (Menor margen de seguridad).', severity: 'medium' },
-            { type: 'Price Fluctuation', message: 'Aumento del 5% en costo de materia prima para Q3.', severity: 'medium' }
+            { type: 'Alerta de Escases', message: 'Posible escasez en Q4 (Menor margen de seguridad).', severity: 'medium' },
+            { type: 'Fluctuación de precios', message: 'Aumento del 5% en costo de materia prima para Q3.', severity: 'medium' }
         ],
         timeSeriesData: [100, 250, 400, 550, 700, 850, 1000, 1100, 1200, 1300, 1400, 1500]
     },
@@ -31,8 +31,8 @@ const MOCKED_SCENARIOS = [
             grossMargin: '80.6%',
         },
         alerts: [
-            { type: 'Stockout Warning', message: "Advertencia: Escasez 'Aceite' Q3-Q4 (Basado en Proyección B)", severity: 'high' },
-            { type: 'Inventory Surplus', message: 'Exceso de Inventario: (45% Sobre el Plan Original)', severity: 'medium' }
+            { type: 'Advertencia de agotamiento', message: "Advertencia: Escasez 'Aceite' Q3-Q4 (Basado en Proyección B)", severity: 'high' },
+            { type: 'Excedente de inventario', message: 'Exceso de Inventario: (45% Sobre el Plan Original)', severity: 'medium' }
         ],
         timeSeriesData: [150, 300, 500, 750, 1000, 1300, 1600, 2000, 2500, 3000, 3500, 3800]
     },
@@ -49,8 +49,8 @@ const MOCKED_SCENARIOS = [
             grossMargin: '63.2%',
         },
         alerts: [
-            { type: 'Demand Low', message: 'Demanda 20% bajo el umbral de rentabilidad.', severity: 'high' },
-            { type: 'High Inventory', message: 'Alto stock sobrante al final del periodo (Costo de almacenamiento)', severity: 'medium' }
+            { type: 'Demanda baja', message: 'Demanda 20% bajo el umbral de rentabilidad.', severity: 'high' },
+            { type: 'Inventario alto', message: 'Alto stock sobrante al final del periodo (Costo de almacenamiento)', severity: 'medium' }
         ],
         timeSeriesData: [80, 180, 280, 380, 480, 580, 680, 780, 880, 980, 1080, 1180]
     },
