@@ -268,7 +268,7 @@ function handleGenerateProjections() {
         $generateProjectionsBtn.innerHTML = 'Generate Projections <span class="icon">→</span>';
         
         // Redirección simulada
-        window.location.href = '/projections'; 
+        window.location.href = '/simulador'; 
     }, 1500);
 }
 
