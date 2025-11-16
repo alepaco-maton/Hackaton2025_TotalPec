@@ -1,14 +1,13 @@
+const express = require('express');
 const app = require('./src/app');
-const PORT = 3000;
+
+const PORT = process.env.PORT || 3000;
+
+// Middlewares para parsear body (JSON y formularios)
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
 app.listen(PORT, () => {
   console.log(`Servidor iniciado en http://localhost:${PORT}`);
 });
-
-
-// 🚨 SOLUCIÓN AL ERROR 'req.body' UNDEFINED 🚨
-// 1. Middleware para parsear JSON (para llamadas AJAX/API)
-app.use(express.json()); 
-// 2. Middleware para parsear URL-encoded (si envías datos de formularios HTML)
-app.use(express.urlencoded({ extended: true })); 
  
