@@ -109,8 +109,8 @@ exports.getScenarioCreationData = (selectedItem = "Batería Premium (Modelo Y) -
 
     return {
         header: {
-            title: "Simulador de Ventas y Compras",
-            userName: "Juan Perez",
+            title: "3. Simulador de Ventas y Compras",
+            userName: "David Padilla",
             userRole: "Gerente de Línea"
         },
         subHeader: {

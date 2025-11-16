@@ -11,13 +11,13 @@
 const HISTORICAL_DB = {
     // Datos globales de la aplicación
     header: {
-        title: "Simulador de Ventas y Compras",
-        userName: "Juan Perez",
+        title: "3. Simulador de Ventas y Compras",
+        userName: "David Padilla",
         userRole: "Gerente de Línea"
     },
     // Estatus de la carga (reutilizado del JSON)
     fileStatus: {
-        title: "1. Archivo Cargado: Ventas2023_Q3.csv",
+        title: "1. Archivo Cargado: Ventas2026_Q3.csv",
         message: "Éxito de Carga: Datos históricos listos. El archivo contiene información de 250 ítems."
     },
     // Lista completa de ítems
@@ -41,7 +41,7 @@ const HISTORICAL_DB = {
             ],
             // Métricas clave (Coherentes con 5200 unid/año)
             metrics: [
-                {"label": "Total Units Sold (2023)", "value": "5,200", "highlight": true},
+                {"label": "Total Units Sold (2026)", "value": "5,200", "highlight": true},
                 {"label": "Average Weekly Sales", "value": "100", "highlight": true},
                 {"label": "Peak Season", "value": "July-Aug", "icon": "info", "tooltip": "Basado en tendencias históricas"}
             ]
@@ -54,7 +54,7 @@ const HISTORICAL_DB = {
                 {"x": "Sem 4", "y1": 160, "y2": 165},
             ],
             metrics: [
-                {"label": "Total Units Sold (2023)", "value": "7,800"},
+                {"label": "Total Units Sold (2026)", "value": "7,800"},
                 {"label": "Average Weekly Sales", "value": "150"},
                 {"label": "Peak Season", "value": "Oct-Nov"}
             ]
@@ -67,7 +67,7 @@ const HISTORICAL_DB = {
                 {"x": "Sem 4", "y1": 40, "y2": 45},
             ],
             metrics: [
-                {"label": "Total Units Sold (2023)", "value": "1,560"},
+                {"label": "Total Units Sold (2026)", "value": "1,560"},
                 {"label": "Average Weekly Sales", "value": "30"},
                 {"label": "Peak Season", "value": "Mar-Apr"}
             ]
@@ -80,7 +80,7 @@ const HISTORICAL_DB = {
                 {"x": "Sem 4", "y1": 110, "y2": 130},
             ],
             metrics: [
-                {"label": "Total Units Sold (2023)", "value": "4,680"},
+                {"label": "Total Units Sold (2026)", "value": "4,680"},
                 {"label": "Average Weekly Sales", "value": "90"},
                 {"label": "Peak Season", "value": "Sep-Oct"}
             ]
@@ -93,7 +93,7 @@ const HISTORICAL_DB = {
                 {"x": "Sem 4", "y1": 270, "y2": 275},
             ],
             metrics: [
-                {"label": "Total Units Sold (2023)", "value": "13,260"},
+                {"label": "Total Units Sold (2026)", "value": "13,260"},
                 {"label": "Average Weekly Sales", "value": "255"},
                 {"label": "Peak Season", "value": "Dec-Jan"}
             ]

@@ -59,7 +59,7 @@ const MOCKED_SCENARIOS = [
 // Datos del Plan Original, usado para la comparación en el gráfico
 const ORIGINAL_PLAN_DATA = [120, 220, 350, 500, 650, 800, 950, 1150, 1350, 1550, 1750, 1950];
 const HISTORICAL_DATA = [80, 180, 280, 380, 480, 580, 680, 780, 880, 980, 1080, 1180];
-const MONTH_LABELS = ['Jan 2023', 'Feb 2023', 'Mar 2023', 'Apr 2023', 'May 2023', 'Jun 2023', 'Jul 2023', 'Aug 2023', 'Sep 2023', 'Oct 2023', 'Nov 2023', 'Dec 2023'];
+const MONTH_LABELS = ['Jan 2026', 'Feb 2026', 'Mar 2026', 'Apr 2026', 'May 2026', 'Jun 2026', 'Jul 2026', 'Aug 2026', 'Sep 2026', 'Oct 2026', 'Nov 2026', 'Dec 2026'];
 
 
 /**

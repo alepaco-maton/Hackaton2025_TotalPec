@@ -4,7 +4,7 @@
 const dataService = require('../services/data.service'); 
 
 /**
- * RENDERIZA la pantalla P3: Configuración Base de Simulación.
+ * RENDERIZA la pantalla P2: Configuración Base de Simulación.
  *
  * Esta función es la encargada de:
  * 1. Preparar/obtener todos los datos necesarios para la vista (lista de ítems,
@@ -25,7 +25,7 @@ exports.renderPage = (req, res) => {
         // una buena práctica es siempre pasar el objeto 'data' para el
         // futuro dinamismo (ej. para el nombre del usuario, el conteo de ítems, etc.)
         res.render('escenarios', {
-            // Datos del header (Juan Perez, Rol, etc.)
+            // Datos del header (David Padilla, Rol, etc.)
             header: viewData.header,
             // Lista de ítems
             items: viewData.items,
