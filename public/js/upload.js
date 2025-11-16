@@ -76,7 +76,7 @@ const startUploadProcess = async (file) => {
         }
         
         // --- Fase 3: Procesando en el servidor (Simulación de tiempo de CPU) ---
-        statusElement.innerText = `3. Archivo recibido. Procesando datos (Simulando ${Math.round(processTime)}ms)...`;
+        statusElement.innerText = `3. Archivo recibido. Procesando datos ( ${Math.round(processTime)}ms)...`;
         progressBar.style.width = "75%"; // Progreso de procesamiento
         
         // Simular la espera del procesamiento (el delay es manejado en el frontend)
