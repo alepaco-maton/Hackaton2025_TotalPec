@@ -1,6 +1,7 @@
 const { Router } = require('express');
 const multer = require('multer');
 const uploadController = require('../controllers/upload.controller');
+const express = require('express');
 
 const escenariosController = require('../controllers/escenarios.controller'); 
 const createscenarioController = require('../controllers/createScenario.controller'); 
@@ -73,5 +74,19 @@ router.get('/escenarios', escenariosController.renderPage);
 router.get('/configurescenarios', createscenarioController.renderPage);
 
 router.get('/simulador', simuladorController.renderPage);
- 
+router.get('/api/simulador/scenario/:scenarioId', simuladorController.loadScenarioAPI);
+
+
+const reportsController = require('../controllers/reports.controller');
+
+// Ruta para la pantalla principal de reportes
+router.get('/reports/final', reportsController.renderFinalReport);
+
+// Ruta para la exportación (GET es suficiente para descargas de reportes)
+router.get('/reports/export/purchases', reportsController.exportPurchaseSuggestion);
+
+// 🚨 SOLUCIÓN: Añadir la ruta de finalización
+// Generalmente se usa POST para acciones de confirmación o cambio de estado.
+router.post('/api/simulador/finalize', simuladorController.finalizeSimulationAPI);
+
 module.exports = router;

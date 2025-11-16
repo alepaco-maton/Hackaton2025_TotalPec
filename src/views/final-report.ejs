@@ -1,0 +1,262 @@
+<%
+    // Desestructuración para facilitar el acceso a los datos
+    const { recommendation, rationale, purchaseReport } = data;
+%>
+
+<%- include('layout', { body: `
+<div class="header-bar">
+    <div class="title">TOTAL PEC</div>
+    <div class="screen-name">5. Reportes y Sugerencias (Decisión Ejecutiva)</div>
+</div>
+
+<div class="section-container">
+    <h3 class="section-label">Recomendación del Sistema: Plan Óptimo</h3>
+    <div class="highlight-panel">
+        <h2 class="scenario-title">Escenario Sugiero: 
+            <span class="optimal-scenario-name">${recommendation.scenario}</span>
+        </h2>
+        <p class="financial-impact">
+            Impacto Financiero Proyectado: 
+            <span class="impact-value">${recommendation.impact}</span>
+        </p>
+    </div>
+</div>
+
+<div class="main-content-grid">
+    <div class="left-panel">
+        <div class="card analysis-card">
+            <h3 class="card-title">Análisis y Racional Detallado (El Porqué)</h3>
+            
+            <div class="rationale-point">
+                <h4>• Lógica de Selección</h4>
+                <p>${rationale.selectionLogic}</p>
+            </div>
+            
+            <div class="rationale-point">
+                <h4>• Mitigación de Riesgo</h4>
+                <p>${rationale.mitigation}</p>
+            </div>
+        </div>
+
+        <div class="card purchase-report-card">
+            <h3 class="card-title">Reporte de Sugerencia de Compras (Plan Seleccionando)</h3>
+            <table class="data-table">
+                <thead>
+                    <tr>
+                        <th>Producto (Ítem)</th>
+                        <th>Stock Actual</th>
+                        <th>Demanda Proyectada (Plan)</th>
+                        <th>Sugerencia de Compra (Unidades)</th>
+                        <th>Fecha Límite Sugerida</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    ${purchaseReport.map(row => `
+                        <tr>
+                            <td>${row.item}</td>
+                            <td>${row.stock}</td>
+                            <td>${row.demand}</td>
+                            <td class="suggested-buy">${row.suggestion}</td>
+                            <td>${row.date}</td>
+                        </tr>
+                    `).join('')}
+                </tbody>
+            </table>
+            
+            <button id="exportBtn" class="btn-primary orange-btn">
+                <i class="fas fa-file-export"></i> Exportar Sugerencia
+            </button>
+        </div>
+    </div>
+
+    <div class="right-panel">
+        <h3 class="section-label">Reportes de Desempeño y Control</h3>
+        
+        <div class="download-box">
+            <h4>Reporte Operacional Detalle de Inventario</h4>
+            <p>Rotación de Días</p>
+            <p>Stock Crítico</p>
+            <p>Formato: Excel/PDF</p>
+            <a href="/reports/export/inventory-detail" class="download-link">Download</a>
+        </div>
+        
+        <div class="download-box">
+            <h4>Resumen Ejecutivo de Rentabilidad</h4>
+            <p>ROI Proyectado</p>
+            <p>Efectividad Promociones</p>
+            <p>Formato: PDF con Gráficos</p>
+            <a href="/reports/export/executive-summary" class="download-link">Download</a>
+        </div>
+    </div>
+</div>
+
+<div class="footer-bar">
+    <button class="footer-btn">
+        <i class="fas fa-arrow-left"></i> Back
+    </button>
+    <button class="footer-btn primary-action">
+        Finish <i class="fas fa-check"></i>
+    </button>
+</div>
+
+<script>
+    document.getElementById('exportBtn').addEventListener('click', () => {
+        // Redirige al endpoint de exportación definido en las rutas
+        window.location.href = '/reports/export/purchases';
+    });
+</script>
+
+<style>
+    /* Estilos CSS para replicar el diseño oscuro y las tarjetas */
+    body {
+        background-color: #1e1e1e; /* Fondo oscuro */
+        color: #ffffff;
+        font-family: Arial, sans-serif;
+    }
+    .header-bar {
+        display: flex;
+        justify-content: space-between;
+        padding: 10px 20px;
+        background-color: #1a1a1a;
+        border-bottom: 1px solid #333;
+    }
+    .screen-name {
+        font-weight: bold;
+        color: #b0b0b0;
+    }
+    .section-container {
+        padding: 20px;
+    }
+    .section-label {
+        font-weight: 300;
+        margin-bottom: 10px;
+        color: #b0b0b0;
+    }
+    .highlight-panel {
+        background-color: #153833; /* Color de fondo verde oscuro para destacar */
+        border: 2px solid #28a745; 
+        padding: 20px;
+        border-radius: 5px;
+    }
+    .scenario-title {
+        margin: 0;
+        font-size: 1.5em;
+    }
+    .impact-value {
+        color: #28a745; /* Verde para el impacto positivo */
+        font-weight: bold;
+    }
+    .main-content-grid {
+        display: grid;
+        grid-template-columns: 2fr 1fr;
+        gap: 20px;
+        padding: 0 20px 20px;
+    }
+    .card {
+        background-color: #2a2a2a; /* Fondo de tarjeta */
+        padding: 20px;
+        border-radius: 8px;
+        margin-bottom: 20px;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+    .card-title {
+        font-size: 1.2em;
+        margin-top: 0;
+        margin-bottom: 15px;
+        color: #f0f0f0;
+    }
+    .rationale-point h4 {
+        margin-top: 0;
+        color: #b0b0b0;
+        font-weight: normal;
+    }
+    /* Estilos de tabla */
+    .data-table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 20px;
+        font-size: 0.9em;
+    }
+    .data-table th, .data-table td {
+        padding: 10px;
+        text-align: left;
+        border-bottom: 1px solid #444;
+    }
+    .data-table th {
+        background-color: #333;
+        color: #b0b0b0;
+    }
+    .suggested-buy {
+        font-weight: bold;
+        color: #28a745;
+    }
+    /* Botones */
+    .btn-primary {
+        background-color: #f0f0f0; 
+        color: #1e1e1e;
+        border: none;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+        font-weight: bold;
+        transition: background-color 0.3s;
+    }
+    .orange-btn {
+        background-color: #e08e0b; /* Naranja para el botón de exportar */
+        color: white;
+    }
+    .orange-btn:hover {
+        background-color: #cc7f00;
+    }
+
+    /* Panel de Descarga */
+    .right-panel .download-box {
+        background-color: #333;
+        padding: 15px;
+        border-radius: 5px;
+        margin-bottom: 10px;
+        display: flex;
+        flex-direction: column;
+    }
+    .download-box h4 {
+        margin-top: 0;
+        font-size: 1em;
+    }
+    .download-box p {
+        margin: 2px 0;
+        font-size: 0.8em;
+        color: #b0b0b0;
+    }
+    .download-link {
+        align-self: flex-end; /* Alinear el botón de descarga a la derecha */
+        background-color: #1a73e8;
+        color: white;
+        padding: 8px 15px;
+        text-decoration: none;
+        border-radius: 4px;
+        margin-top: 10px;
+        font-size: 0.9em;
+    }
+
+    /* Footer */
+    .footer-bar {
+        background-color: #1a1a1a;
+        padding: 15px 20px;
+        display: flex;
+        justify-content: space-between;
+        border-top: 1px solid #333;
+    }
+    .footer-btn {
+        background: none;
+        border: 1px solid #444;
+        color: #f0f0f0;
+        padding: 10px 20px;
+        border-radius: 5px;
+        cursor: pointer;
+    }
+    .footer-btn.primary-action {
+        background-color: #1a73e8;
+        border-color: #1a73e8;
+    }
+</style>
+` }) %>
