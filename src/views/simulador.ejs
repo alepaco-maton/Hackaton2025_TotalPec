@@ -357,7 +357,7 @@ body {
 
 <div class="app-container">
     <header class="header-simulador">
-        <h1>4. Simulation Results</h1>
+        <h1>4. Resultados de Simulación</h1>
         <div class="nav-steps">
             <div class="step step-active">1</div>
             <div class="step step-active">2</div>
@@ -370,25 +370,25 @@ body {
         <section>
             <div class="kpi-panel">
                 <div class="kpi-box">
-                    <span>Projected Sales (Units)</span>
+                    <span>Ventas Proyectadas (Unidades)</span>
                     <strong id="kpi-sales"><%= activeScenario.simulationData.projectedSales %></strong>
                 </div>
                 <div class="kpi-box">
-                    <span>Total Revenue</span>
+                    <span>Ingresos Totales</span>
                     <strong id="kpi-revenue" class="text-green"><%= formatCurrency(activeScenario.simulationData.totalRevenue) %></strong>
                 </div>
                 <div class="kpi-box">
-                    <span>Estimated Cost</span>
+                    <span>Costo Estimado</span>
                     <strong id="kpi-cost" class="text-red"><%= formatCurrency(activeScenario.simulationData.estimatedCost) %></strong>
                 </div>
                 <div class="kpi-box">
-                    <span>Gross Margin</span>
+                    <span>Margen Bruto</span>
                     <strong id="kpi-margin" class="text-green-alt"><%= formatMargin(activeScenario.simulationData.grossMargin) %></strong>
                 </div>
             </div>
 
             <div class="alert-panel" id="alert-panel">
-                <h3>Alerts</h3>
+                <h3>Alertas</h3>
                 <% activeScenario.alerts.forEach((alert, index) => { %>
                     <div 
                         class="alert <%= alert.severity.toLowerCase() %>"
@@ -402,8 +402,8 @@ body {
         </section>
 
         <section class="chart-section">
-            <h2>Scenario Comparison</h2>
-            <p class="chart-context">Selected Scenario (<%= activeScenario.name %>) vs. Original Plan (2024)</p>
+            <h2>Comparación de Escenarios</h2>
+            <p class="chart-context">Escenario Seleccionado (<%= activeScenario.name %>) vs. Plan Original (2024)</p>
             <div class="chart-container">
                 <canvas id="comparisonChart"></canvas>
             </div>
@@ -424,10 +424,10 @@ body {
 
     <footer class="footer-actions">
         <button class="btn back-btn" onclick="window.history.back()">
-            Back: Adjust Inputs
+            Atrás: Ajustar Entradas
         </button>
         <button class="btn next-btn primary" onclick="showConfirmationModal()">
-            Next: Compare Scenarios &rarr;
+            Siguiente: Comparar Escenarios &rarr;
         </button>
     </footer>
 </div>

@@ -22,10 +22,10 @@
     <div class="p3-grid">
         
         <div class="card p3-col-1">
-            <h3 class="scenario-title">Select Item & Period</h3>
+            <h3 class="scenario-title">Seleccionar Ítem y Período</h3>
 
             <div class="form-group search-bar">
-                <input type="text" id="productSearch" placeholder="Search Product Catalog..." class="text-input-compact" style="max-width: none; width: 100%; border: 1px solid #ccc; text-align: left; padding-left: 30px;">
+                <input type="text" id="productSearch" placeholder="Buscar en Catálogo de Productos..." class="text-input-compact" style="max-width: none; width: 100%; border: 1px solid #ccc; text-align: left; padding-left: 30px;">
                 <span style="position: absolute; left: 10px; top: 10px; color: #999;">🔍</span>
             </div>
 
@@ -38,32 +38,32 @@
                 </div>
 
             <div class="period-selection" style="display: flex; gap: 10px; align-items: center; margin-bottom: 20px;">
-                <button id="weeklyBtn" class="btn-primary active" style="flex-grow: 1; padding: 8px 10px; font-size: 14px;">Weekly Simulation</button>
-                <button id="monthlyBtn" class="btn-secondary" style="flex-grow: 1; padding: 8px 10px; font-size: 14px;">Monthly Simulation</button>
+                <button id="weeklyBtn" class="btn-primary active" style="flex-grow: 1; padding: 8px 10px; font-size: 14px;">Simulación Semanal</button>
+                <button id="monthlyBtn" class="btn-secondary" style="flex-grow: 1; padding: 8px 10px; font-size: 14px;">Simulación Mensual</button>
             </div>
  
         </div>
         <div class="card p3-col-2">
-            <h3 class="scenario-title">Historical Sales Data</h3>
+            <h3 class="scenario-title">Datos Históricos de Ventas</h3>
             
             <div class="chart-container" style="height: 220px; background: #f9f9f9; border-radius: 8px; border: 1px solid #eee; display: flex; flex-direction: column; justify-content: space-between; padding: 10px; margin-bottom: 20px;">
-                <span style="font-size: 14px; color: #555;">Weekly Sales Volume (Units)</span>
+                <span style="font-size: 14px; color: #555;">Volumen de Ventas Semanal (Unidades)</span>
                 <canvas id="salesChart" class="placeholder-chart" style="flex-grow: 1; min-height: 0;"></canvas>
-                <span style="font-size: 12px; color: #aaa; text-align: right;">Jan 2023 - Dec 2023</span>
+                <span style="font-size: 12px; color: #aaa; text-align: right;">Ene 2023 - Dic 2023</span>
             </div>
-            <h4 class="variables-heading" style="margin-top: 0;">Key Metrics</h4>
+            <h4 class="variables-heading" style="margin-top: 0;">Métricas Clave</h4>
             
             <div class="key-metrics-group" style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
                 <div class="metric-item" style="flex-basis: 30%; min-width: 100px;">
                     <div id="metricTotalUnits" style="font-size: 20px; font-weight: bold; color: #333;">5,200</div>
-                    <div class="help-text-small">Total Units Sold (2023)</div>
+                    <div class="help-text-small">Total de Unidades Vendidas (2023)</div>
                 </div>
                 <div class="metric-item" style="flex-basis: 30%; min-width: 100px;">
                     <div id="metricAvgWeeklySales" style="font-size: 20px; font-weight: bold; color: #333;">100</div>
-                    <div class="help-text-small">Average Weekly Sales</div>
+                    <div class="help-text-small">Promedio de Ventas Semanales</div>
                 </div>
                 <div class="metric-item" style="flex-basis: 30%; min-width: 100px; text-align: right;">
-                    <div id="metricBestPeriod" class="metric-value" style="font-size: 20px; font-weight: bold; color: #333;">July-Aug</div>
+                    <div id="metricBestPeriod" class="metric-value" style="font-size: 20px; font-weight: bold; color: #333;">Jul-Ago</div>
                     <div class="help-text-small" style="display: flex; align-items: center; justify-content: flex-end; gap: 3px; font-style: italic;">
                         Base en historial
                         <span style="color: #1a73e8; font-size: 14px;">ⓘ</span>
@@ -73,18 +73,18 @@
             
             <hr class="divider" style="margin: 15px 0;">
 
-            <h4 class="variables-heading">Key Metrics</h4>
+            <h4 class="variables-heading">Métricas Clave</h4>
             <div class="key-metrics-group" style="display: flex; justify-content: space-between; gap: 10px; flex-wrap: wrap;">
                 <div class="metric-item" style="flex-basis: 30%; min-width: 100px;">
                     <div style="font-size: 20px; font-weight: bold; color: #333;">5,100</div>
-                    <div class="help-text-small">Averages Sold (2023)</div>
+                    <div class="help-text-small">Promedio Vendido (2023)</div>
                 </div>
                 <div class="metric-item" style="flex-basis: 30%; min-width: 100px;">
                     <div style="font-size: 20px; font-weight: bold; color: #333;">100</div>
-                    <div class="help-text-small">Average Weekly Sales</div>
+                    <div class="help-text-small">Promedio de Ventas Semanales</div>
                 </div>
                 <div class="metric-item" style="flex-basis: 30%; min-width: 100px; text-align: right;">
-                    <div style="font-size: 20px; font-weight: bold; color: #333;">July-Aug</div>
+                    <div style="font-size: 20px; font-weight: bold; color: #333;">Jul-Ago</div>
                     <div class="help-text-small" style="display: flex; align-items: center; justify-content: flex-end; gap: 3px; font-style: italic;">
                         Base en historial
                         <span style="color: #1a73e8; font-size: 14px;">ⓘ</span>
@@ -97,7 +97,7 @@
             <h3 class="scenario-title">Configuración de Escenario</h3>
             
             <div class="form-group">
-                <label for="forecastHorizon" class="variables-heading">Forecast Horizon</label>
+                <label for="forecastHorizon" class="variables-heading">Horizonte de prevision</label>
                 <div class="input-with-unit">
                     <input type="number" id="forecastHorizon" value="3" class="text-input-compact" style="text-align: left; max-width: 100px; flex-grow: 0;">
                     <span class="unit">Meses</span>
@@ -106,7 +106,7 @@
             </div>
 
             <div class="form-group" style="margin-top: 30px;">
-                <label class="variables-heading" for="applyTrendToggle">Apply Trend & Seasonality</label>
+                <label class="variables-heading" for="applyTrendToggle">Aplicar tendencia y estacionalidad</label>
                 <div style="display: flex; justify-content: space-between; align-items: center;">
                     <span class="unit">ON</span>
                     <div class="toggle-switch active" id="applyTrendToggle" style="width: 40px; height: 20px; background: #318a77; border-radius: 10px; cursor: pointer; transition: 0.3s;">

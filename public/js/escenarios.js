@@ -28,9 +28,9 @@ let salesChartInstance = null; // Variable para almacenar la instancia del gráf
 const ALL_ITEM_DATA = {
     // Item 1: OUR10003726 (Filtro de Aceite) - Tendencia Creciente Suave
     'OUR10003726': {
-        metrics: { totalUnits: 5200, avgWeekly: 100, bestPeriod: 'July - Aug' },
+        metrics: { totalUnits: 5200, avgWeekly: 100, bestPeriod: 'Jul-Ago' },
         weekly: {
-            labels: Array.from({ length: 12 }, (_, i) => `S-${i + 1}`),
+    labels: Array.from({ length: 12 }, (_, i) => `S-${i + 1}`),
             sales: [95, 100, 105, 102, 110, 115, 112, 120, 125, 122, 130, 135],
             forecast: [100, 105, 108, 110, 115, 118, 120, 125, 128, 130, 135, 140]
         },
@@ -96,7 +96,7 @@ const renderChart = (period, dataSet) => {
     }
 
     salesChartInstance = new Chart(chartContainer, {
-        type: 'line',
+    type: 'line',
         data: {
             labels: dataSet.labels,
             datasets: [
@@ -110,7 +110,7 @@ const renderChart = (period, dataSet) => {
                     tension: 0.4
                 },
                 {
-                    label: 'Forecast Base',
+                    label: 'Pronóstico Base',
                     data: dataSet.forecast,
                     borderColor: '#318a77', // Teal (Pronóstico)
                     backgroundColor: 'rgba(49, 138, 119, 0.1)',
@@ -142,7 +142,7 @@ const renderChart = (period, dataSet) => {
 
     // Actualizar el título en la UI
     document.querySelector('.chart-container > span:first-child').innerText = isWeekly ? 
-        'Weekly Sales Volume (Units)' : 'Monthly Sales Volume (Units)';
+        'Volumen de Ventas Semanal (Unidades)' : 'Volumen de Ventas Mensual (Unidades)';
 };
 
 
@@ -174,7 +174,7 @@ const updateHistoricalData = (itemId, period) => {
     }
     const dateRangeSpan = document.querySelector('.chart-container > span:last-child');
     if (dateRangeSpan) {
-        dateRangeSpan.innerText = period === 'weekly' ? 'Last 12 Weeks' : 'Last 6 Months';
+        dateRangeSpan.innerText = period === 'weekly' ? 'Últimas 12 Semanas' : 'Últimos 6 Meses';
     }
 };
 
@@ -224,7 +224,7 @@ if (productSearch && productList) {
                 item.style.display = 'none';
             }
         });
-        console.log(`[Search] Ítems filtrados: ${filteredCount}`);
+        console.log(`[Búsqueda] Ítems filtrados: ${filteredCount}`);
     });
 }
 
@@ -258,7 +258,7 @@ if (applyTrendToggle) {
     applyTrendToggle.addEventListener('click', () => {
         applyTrendToggle.classList.toggle('active');
         const state = applyTrendToggle.classList.contains('active') ? 'Activado' : 'Desactivado';
-        console.log(`[Config] Apply Trend & Seasonality: ${state}`);
+        console.log(`[Configuración] Aplicar Tendencia y Estacionalidad: ${state}`);
     });
 }
 
