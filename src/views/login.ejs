@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Login - TotalPEC</title>
+    <link rel="stylesheet" href="/css/login.css">
+  </head>
+  <body>
+    <main class="login-container">
+      <div class="login-card">
+        <header class="logo-wrap">
+          <div class="total-pec-logo">
+            <span class="logo-text">TOTAL</span>
+            <span class="logo-badge">
+              <span class="bar red"></span>
+              <span class="bar yellow"></span>
+              <span class="bar green"></span>
+              <span class="bar blue"></span>
+            </span>
+            <span class="logo-text">PEC</span>
+          </div>
+          <p class="subtitle">TOTAL TECNOLOGIA PARA EL AGRO</p>
+        </header>
+
+        <% if (typeof error !== 'undefined' && error) { %>
+          <div class="error-message"><%= error %></div>
+        <% } %>
+
+        <form id="loginForm" action="/login" method="post" novalidate>
+          <div class="field">
+            <label for="username" class="sr-only">Correo electrónico</label>
+            <input id="username" name="username" type="text" placeholder="User o Correo electrónico" required>
+          </div>
+
+          <div class="field">
+            <label for="password" class="sr-only">Contraseña</label>
+            <input id="password" name="password" type="password" placeholder="Contraseña" required minlength="3">
+          </div>
+
+          <div class="actions">
+            <button id="submitBtn" type="submit" class="btn primary">Iniciar sesión</button>
+          </div>
+
+          <div class="links">
+            <a href="#" class="forgot">¿Olvidaste tu contraseña?</a>
+          </div>
+        </form>
+      </div>
+    </main>
+
+    <script src="/js/login.js"></script>
+  </body>
+</html>

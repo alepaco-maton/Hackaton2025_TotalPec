@@ -1,0 +1,34 @@
+/* Mobile-first styles for login */
+:root{
+  --navy: #003366;
+  --input-bg: #f5f6f7;
+  --input-border: #d0d0d0;
+  --muted: #666;
+}
+*{box-sizing:border-box}
+body{font-family:Inter, Arial, sans-serif;background:#ffffff;display:flex;min-height:100vh;align-items:center;justify-content:center;padding:20px}
+.login-container{width:100%;max-width:420px}
+.login-card{background:#fff;padding:28px;border-radius:10px;box-shadow:0 6px 18px rgba(0,0,0,0.08);border:1px solid #e6e6e6}
+.logo-wrap{text-align:center;margin-bottom:18px}
+.total-pec-logo{display:flex;align-items:center;justify-content:center;gap:8px;font-weight:700;font-size:28px;color:var(--navy)}
+.logo-badge{display:inline-flex;align-items:center;gap:4px}
+.logo-badge .bar{width:12px;height:18px;display:inline-block;border-radius:2px}
+.logo-badge .red{background:#c62828}
+.logo-badge .yellow{background:#f4c542}
+.logo-badge .green{background:#2e8b57}
+.subtitle{font-size:12px;color:var(--muted);margin-top:6px}
+.field{margin-bottom:14px}
+input[type="text"],input[type="email"],input[type="password"]{width:100%;padding:12px 14px;border-radius:6px;border:1px solid var(--input-border);background:var(--input-bg);font-size:15px;outline:none;transition:box-shadow .15s, border-color .15s;box-sizing:border-box}
+input:focus{border-color:var(--navy);box-shadow:0 0 0 3px rgba(0,51,102,0.06)}
+.actions{display:flex;justify-content:center;margin-top:4px}
+.btn{padding:12px 18px;border-radius:8px;border:none;cursor:pointer;font-weight:600}
+.btn.primary{background:var(--navy);color:#fff;width:80%;max-width:260px}
+.btn.primary:hover{background:#002244}
+.links{text-align:center;margin-top:12px}
+.forgot{color:var(--navy);text-decoration:none;font-size:13px}
+.error-message{background:#ffe6e6;border:1px solid #ffb3b3;color:#8a1f1f;padding:10px;border-radius:6px;margin-bottom:12px;text-align:center}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+@media(min-width:768px){
+  body{background:var(--input-bg)}
+}
