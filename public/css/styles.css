@@ -1,0 +1,411 @@
+/* ----- Reset simple ----- */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background: #eef0f4;
+    padding: 20px; /* Base para móvil */
+}
+
+/* Para pantallas de escritorio/tablet */
+@media (min-width: 768px) {
+    body {
+        padding: 40px; /* Más padding para pantallas grandes */
+    }
+}
+
+/* ------ Layout general ------ */
+.container {
+    max-width: 900px;
+    margin: auto;
+}
+
+.card {
+    background: white;
+    border-radius: 12px;
+    padding: 25px; 
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+/* Ajuste del padding de la card en escritorio */
+@media (min-width: 768px) {
+    .card {
+        padding: 40px;
+    }
+}
+
+/* --- Estilos de Títulos y Encabezados --- */
+.card h1 {
+    font-size: 32px; 
+    font-weight: bold;
+    margin-bottom: 8px; 
+    line-height: 1.1; 
+}
+.card h2, .section-heading {
+    font-size: 18px;
+    font-weight: bold;
+    margin-top: 25px;
+    margin-bottom: 15px;
+}
+.card h3, .scenario-title {
+    font-size: 20px;
+    font-weight: bold;
+    margin-bottom: 15px;
+    color: #333;
+}
+.card h4, .variables-heading {
+    font-size: 16px;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.subtitle {
+    color: #555;
+    margin-bottom: 25px;
+    font-size: 15px;
+}
+
+/* --- Estilos de Layout Específicos para Escenarios --- */
+
+.section-context { /* Reemplaza section-title-context */
+    font-size: 14px;
+    color: #666;
+    margin-bottom: 5px;
+    font-weight: normal;
+}
+
+.divider {
+    border: none;
+    border-top: 1px solid #e0e0e0;
+    margin: 30px 0;
+}
+
+/* --- Estilos de Formularios y Inputs --- */
+
+.form-group { /* Clase genérica para reemplazar form-group-base/scenario */
+    margin-bottom: 20px;
+}
+
+.input-with-unit {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 5px;
+}
+
+.text-input-compact { /* Nueva clase unificada para inputs compactos */
+    /* Valor por defecto con borde ligero para crecimiento adicional/base */
+    padding: 8px 10px; /* Menos padding */
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 15px;
+    flex-grow: 1; 
+    max-width: 80px; /* Ajuste más compacto */
+    text-align: right; 
+}
+
+/* Estilo para los inputs de la lista de variables (Sin borde, solo texto) */
+.variables-list .text-input-compact {
+    border: none;
+    padding: 0;
+    max-width: 60px; /* Más estrecho */
+}
+
+@media (max-width: 600px) {
+    .text-input-compact {
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.unit {
+    color: #555;
+    font-size: 14px;
+    padding-right: 10px;
+    white-space: nowrap;
+}
+
+.unit-impact { /* Estilo para la unidad "% Impacto" */
+    color: #666;
+    font-size: 13px;
+    white-space: nowrap;
+    padding-right: 5px;
+}
+
+.help-text-small { /* Clase de apoyo */
+    font-size: 13px;
+    color: #888;
+    margin-top: 5px;
+}
+
+/* Botón de Icono (+) */
+.btn-input-action { /* Nueva clase para el botón de acción al lado del input */
+    background: transparent;
+    color: #1a73e8; 
+    padding: 8px 12px;
+    font-size: 18px;
+    line-height: 1;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+.btn-input-action:hover {
+    background: #f0f0f0;
+}
+
+.total-growth-info {
+    font-size: 14px;
+    color: #333;
+    margin-bottom: 10px;
+    font-weight: bold; /* Se ve más destacado en la imagen */
+}
+
+/* --- Estilos de Pestañas (Tabs) --- */
+
+.tabs-header {
+    display: flex;
+    justify-content: flex-start;
+    overflow-x: auto; 
+    background: #e6e6e6; 
+    border-radius: 6px;
+    padding: 4px;
+    margin-bottom: 20px;
+}
+
+.tab-btn {
+    padding: 8px 18px;
+    border: none;
+    background: transparent;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 500;
+    color: #666;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    white-space: nowrap; 
+}
+
+.tab-btn.active {
+    color: #318a77; 
+    background: white;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.tab-content {
+    display: none;
+}
+
+.tab-content.active {
+    display: block;
+}
+
+/* --- Variables de Impacto (Lista) --- */
+
+.variables-list {
+    margin-bottom: 20px;
+}
+
+.variable-item {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0; 
+    border-bottom: 1px solid #eee; 
+}
+.variables-list .variable-item:last-child {
+    border-bottom: none;
+}
+
+.variable-name {
+    font-weight: normal;
+    color: #333;
+    flex-grow: 1; 
+}
+
+.variable-input-group {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    flex-shrink: 0;
+    margin-left: 20px; 
+}
+
+.btn-delete {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    color: #999;
+    padding: 0 5px; 
+    transition: color 0.2s ease;
+}
+.btn-delete:hover {
+    color: #dc3545;
+}
+
+.delete-icon::before {
+    content: "🗑"; 
+    font-size: 14px;
+}
+
+.btn-add-variable {
+    margin-top: 15px;
+    width: auto; 
+    max-width: none; 
+    background: #318a77; 
+}
+.btn-add-variable:hover {
+    background: #236557;
+}
+
+/* --- Caja de Información (Sugerencia) --- */
+.info-box {
+    background: #f0f8ff; 
+    border-left: 5px solid #1a73e8;
+    padding: 15px;
+    border-radius: 6px;
+    font-size: 14px;
+    color: #333;
+    display: flex;
+    align-items: flex-start;
+    margin-top: 25px;
+}
+
+.info-icon {
+    font-weight: bold;
+    font-size: 18px;
+    color: #1a73e8;
+    margin-right: 10px;
+    line-height: 1;
+    font-style: italic; 
+}
+
+/* --- Pie de Página de Acciones --- */
+
+.actions-footer {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    margin-top: 30px;
+}
+
+.btn-footer {
+    width: 50%;
+    padding: 14px;
+    font-size: 15px;
+    font-weight: 500;
+}
+
+/* --------------------------------------------------------------------- */
+/* --- ESTILOS GENERALES Y DE BOTONES --- */
+/* --------------------------------------------------------------------- */
+
+/* ---- Botón Primario General (Verde/Teal) ---- */
+.btn-primary {
+    background: #318a77; 
+    color: white;
+    padding: 12px 18px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+}
+
+.btn-primary:hover {
+    background: #236557;
+}
+
+/* ----- Botón secundario (Volver a Carga de Datos) ----- */
+.btn-secondary {
+    padding: 14px;
+    font-size: 15px;
+    border-radius: 6px;
+    border: 1px solid #ccc; 
+    cursor: pointer;
+    background: #fff; 
+    color: #333;
+    transition: background 0.2s ease;
+    font-weight: 500;
+}
+
+.btn-secondary:enabled:hover {
+    background: #f0f0f0;
+}
+
+.btn-secondary:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+/* Responsividad para botones de pie de página */
+@media (max-width: 600px) {
+    .actions-footer {
+        flex-direction: column; 
+    }
+    .btn-footer {
+        width: 100%;
+    }
+}
+
+/* --------------------------------------------------------------------- */
+/* --- ESTILOS DE CARGA DE ARCHIVO (Reutilizados) --- */
+/* --------------------------------------------------------------------- */
+
+.upload-box {
+    border: 2px dashed #d0d0d0;
+    padding: 25px;
+    border-radius: 10px;
+    text-align: center;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 15px;
+}
+
+.drop-area {
+    display: block;
+    cursor: pointer;
+    margin-bottom: 0;
+    width: 100%;
+    padding: 10px;
+}
+
+/* Estilo para resaltar el área de Drag and Drop */
+.upload-box.highlight {
+    border-color: #1a73e8; 
+    background-color: #f7faff; 
+}
+
+/* Barra de progreso */
+.progress {
+    width: 100%;
+    background: #e5e5e5;
+    border-radius: 5px;
+    height: 10px;
+    margin-top: 20px;
+    overflow: hidden;
+}
+
+#progress-bar {
+    width: 0%;
+    height: 100%;
+    background: #1a73e8;
+    transition: width 0.3s ease;
+}
+
+/* Status text */
+.status {
+    margin-top: 10px;
+    font-size: 14px;
+}
+
+
+@import url('p3.css');
+
+@import url('createScenario.css');

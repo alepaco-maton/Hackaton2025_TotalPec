@@ -1,0 +1,503 @@
+<% 
+    // Función de ayuda para formatear strings de dinero, si no lo hace el backend
+    const formatCurrency = (value) => {
+        if (!value) return '';
+        // Asume que el valor viene como '$3.1M' o similar
+        return value;
+    };
+    
+    // Función de ayuda para formatear márgenes, si no lo hace el backend
+    const formatMargin = (value) => {
+        if (!value) return '';
+        // Asume que el valor viene como '80.6%'
+        return value;
+    };
+%>
+
+<style>
+/* =======================================================
+    ESTILOS BASE Y LAYOUT (Light Mode)
+    ======================================================= */
+body {
+    background-color: #f4f7f9; /* Fondo muy claro, corporativo */
+    color: #333;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.app-container {
+    width: 90%;
+    max-width: 1300px;
+    margin: 30px auto;
+    background-color: #ffffff; /* Contenedor principal blanco */
+    border-radius: 12px;
+    padding: 30px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); /* Sombra suave */
+}
+
+/* --------------------------------------------------------------------- */
+/* --- HEADER Y PASOS DE NAVEGACIÓN --- */
+/* --------------------------------------------------------------------- */
+.header-simulador {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding-bottom: 25px;
+    border-bottom: 1px solid #e0e0e0;
+    margin-bottom: 30px;
+}
+
+.header-simulador h1 {
+    font-size: 1.8em;
+    font-weight: 600;
+    color: #333;
+    margin: 0;
+}
+
+/* Pasos de navegación */
+.nav-steps {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.step {
+    font-size: 0.9em;
+    padding: 6px 15px;
+    border-radius: 20px;
+    font-weight: 500;
+    background-color: #f0f0f0;
+    color: #888;
+    border: 1px solid #ccc;
+}
+
+.step-active {
+    background-color: #1a73e8; /* Azul primario */
+    color: white;
+    border-color: #1a73e8;
+}
+
+.step-current {
+    background-color: #4CAF50; /* Verde de la imagen */
+    color: white;
+    border-color: #4CAF50;
+}
+
+/* --------------------------------------------------------------------- */
+/* --- CONTENIDO PRINCIPAL (KPIs y Gráfico) --- */
+/* --------------------------------------------------------------------- */
+.content-wrapper {
+    display: grid;
+    grid-template-columns: 320px 1fr;
+    gap: 30px;
+}
+
+/* =======================================================
+    SECCIÓN IZQUIERDA: KPIs y Alertas
+    ======================================================= */
+.kpi-panel {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.kpi-box {
+    background-color: #f8f8f8; /* Fondo muy ligero para las cajas */
+    padding: 15px 10px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    text-align: left;
+}
+
+.kpi-box span {
+    font-size: 0.8em;
+    color: #777;
+    display: block;
+    font-weight: 400;
+    margin-bottom: 4px;
+}
+
+.kpi-box strong {
+    font-size: 1.6em;
+    display: block;
+    font-weight: 700;
+}
+
+/* Colores de KPIs */
+.kpi-panel .text-green { color: #28a745; } /* Total Revenue (Verde clásico) */
+.kpi-panel .text-red { color: #dc3545; } /* Estimated Cost (Rojo clásico) */
+.kpi-panel .text-blue { color: #007bff; } /* Projected Sales (Azul primario) */
+.kpi-panel .text-green-alt { color: #17a2b8; } /* Gross Margin (Cyan/Teal) */
+
+
+/* Panel de Alertas */
+.alert-panel {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+}
+
+.alert-panel h3 {
+    font-size: 1.1em;
+    font-weight: 600;
+    margin-top: 0;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.alert {
+    display: flex;
+    align-items: center;
+    padding: 10px;
+    margin-bottom: 8px;
+    border-radius: 4px;
+    font-size: 0.9em;
+    cursor: pointer; /* Añadido para interacción */
+    transition: background-color 0.2s;
+}
+
+.alert:hover {
+    opacity: 0.9;
+    box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+}
+
+.alert .icon {
+    font-size: 1.2em;
+    margin-right: 10px;
+    font-weight: bold;
+}
+
+.alert.high {
+    background-color: #fff0f0; 
+    color: #dc3545;
+    border-left: 4px solid #dc3545;
+}
+
+.alert.medium {
+    background-color: #fffde7; 
+    color: #ffc107;
+    border-left: 4px solid #ffc107;
+}
+
+/* =======================================================
+    SECCIÓN DERECHA: Gráfico de Comparación
+    ======================================================= */
+.chart-section {
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 8px;
+    border: 1px solid #eee;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+}
+
+.chart-section h2 {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-top: 0;
+    color: #333;
+}
+
+.chart-context {
+    font-size: 0.9em;
+    color: #777;
+    margin-bottom: 20px;
+}
+
+.chart-container {
+    height: 400px; 
+}
+
+/* =======================================================
+    SELECTOR DE ESCENARIOS (Botones A. B. C.)
+    ======================================================= */
+.scenario-selector {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    padding: 30px 0;
+    border-top: 1px solid #eee;
+    margin-top: 30px;
+}
+
+.scenario-btn {
+    background-color: #e9ecef; /* Gris claro */
+    color: #333;
+    border: 1px solid #ced4da;
+    padding: 12px 30px;
+    border-radius: 50px;
+    cursor: pointer;
+    transition: background-color 0.3s, box-shadow 0.2s;
+    font-weight: 600;
+    font-size: 1em;
+}
+
+.scenario-btn:hover {
+    background-color: #dee2e6;
+}
+
+.scenario-btn.active {
+    background-color: #007bff; /* Azul de activación */
+    color: white;
+    border-color: #007bff;
+    box-shadow: 0 3px 10px rgba(0, 123, 255, 0.3);
+}
+
+/* =======================================================
+    FOOTER Y ACCIONES DE DECISIÓN
+    ======================================================= */
+.footer-actions {
+    display: flex;
+    justify-content: space-between;
+    padding: 20px 0;
+    border-top: 1px solid #e0e0e0;
+}
+
+.btn {
+    padding: 12px 25px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+    border: none;
+    transition: background-color 0.3s;
+    text-transform: uppercase;
+}
+
+.back-btn {
+    background-color: #6c757d; /* Gris secundario */
+    color: white;
+}
+
+.next-btn.primary {
+    background-color: #4CAF50; /* Verde principal (Confirmar) */
+    color: white;
+}
+
+.back-btn:hover {
+    background-color: #5a6268;
+}
+
+.next-btn.primary:hover {
+    background-color: #43a047;
+}
+
+/* =======================================================
+    MODALES (Reemplazo de alert/confirm)
+    ======================================================= */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    display: none; /* Inicialmente oculto */
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.modal-content {
+    background-color: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 8px 30px rgba(0, 0, 0, 0.2);
+    width: 90%;
+    max-width: 450px;
+    animation: fadeIn 0.3s ease-out;
+}
+
+.modal-header {
+    font-size: 1.4em;
+    font-weight: 600;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.modal-body {
+    font-size: 1em;
+    color: #555;
+    margin-bottom: 20px;
+    line-height: 1.5;
+}
+
+.modal-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* =======================================================
+    Ajustes de Media Query para Móviles
+    ======================================================= */
+@media (max-width: 768px) {
+    .content-wrapper {
+        grid-template-columns: 1fr; /* Pila verticalmente */
+    }
+    .kpi-panel {
+        gap: 10px;
+    }
+    .scenario-selector {
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+    .scenario-btn {
+        flex-grow: 1;
+    }
+}
+    
+</style>
+
+<div class="app-container">
+    <header class="header-simulador">
+        <h1>4. Simulation Results</h1>
+        <div class="nav-steps">
+            <div class="step step-active">1</div>
+            <div class="step step-active">2</div>
+            <div class="step step-active">3</div>
+            <div class="step step-current">4</div>
+        </div>
+    </header>
+
+    <main class="content-wrapper">
+        <section>
+            <div class="kpi-panel">
+                <div class="kpi-box">
+                    <span>Projected Sales (Units)</span>
+                    <strong id="kpi-sales"><%= activeScenario.simulationData.projectedSales %></strong>
+                </div>
+                <div class="kpi-box">
+                    <span>Total Revenue</span>
+                    <strong id="kpi-revenue" class="text-green"><%= formatCurrency(activeScenario.simulationData.totalRevenue) %></strong>
+                </div>
+                <div class="kpi-box">
+                    <span>Estimated Cost</span>
+                    <strong id="kpi-cost" class="text-red"><%= formatCurrency(activeScenario.simulationData.estimatedCost) %></strong>
+                </div>
+                <div class="kpi-box">
+                    <span>Gross Margin</span>
+                    <strong id="kpi-margin" class="text-green-alt"><%= formatMargin(activeScenario.simulationData.grossMargin) %></strong>
+                </div>
+            </div>
+
+            <div class="alert-panel" id="alert-panel">
+                <h3>Alerts</h3>
+                <% activeScenario.alerts.forEach((alert, index) => { %>
+                    <div 
+                        class="alert <%= alert.severity.toLowerCase() %>"
+                        onclick="openAlertDetails(<%= JSON.stringify(alert) %>)"
+                    >
+                        <span class="icon">!</span>
+                        <p><strong><%= alert.type %>:</strong> <%= alert.message %></p>
+                    </div>
+                <% }); %>
+            </div>
+        </section>
+
+        <section class="chart-section">
+            <h2>Scenario Comparison</h2>
+            <p class="chart-context">Selected Scenario (<%= activeScenario.name %>) vs. Original Plan (2024)</p>
+            <div class="chart-container">
+                <canvas id="comparisonChart"></canvas>
+            </div>
+        </section>
+    </main>
+
+    <div class="scenario-selector">
+        <% scenarios.forEach(s => { %>
+            <button 
+                class="scenario-btn <%= s.status === 'Active' ? 'active' : '' %>" 
+                data-scenario-id="<%= s.scenarioId %>"
+                onclick="loadScenario('<%= s.scenarioId %>')"
+            >
+                <%= s.name %> &rarr;
+            </button>
+        <% }); %>
+    </div>
+
+    <footer class="footer-actions">
+        <button class="btn back-btn" onclick="window.history.back()">
+            Back: Adjust Inputs
+        </button>
+        <button class="btn next-btn primary" onclick="showConfirmationModal()">
+            Next: Compare Scenarios &rarr;
+        </button>
+    </footer>
+</div>
+
+
+<!-- ======================================================= -->
+<!-- MODALES (Hidden by default) -->
+<!-- ======================================================= -->
+
+<!-- 1. Modal General (Para errores y mensajes de éxito) -->
+<div class="modal-overlay" id="general-modal">
+    <div class="modal-content">
+        <div class="modal-header" id="general-modal-title"></div>
+        <div class="modal-body" id="general-modal-body"></div>
+        <div class="modal-footer">
+            <button class="btn back-btn" onclick="hideModal('general-modal')">Aceptar</button>
+        </div>
+    </div>
+</div>
+
+<!-- 2. Modal de Confirmación (Para la acción Finalize) -->
+<div class="modal-overlay" id="confirmation-modal">
+    <div class="modal-content">
+        <div class="modal-header">Confirmación de Escenario</div>
+        <div class="modal-body">
+            <p>¿Está seguro de seleccionar el escenario <strong><span id="confirm-scenario-name"><%= activeScenario.name %></span></strong> como plan oficial y avanzar? Esta acción es irreversible.</p>
+            <p class="chart-context">Al confirmar, se iniciará la generación del Reporte Final.</p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn" style="background-color: #f4f4f4; color: #333;" onclick="hideModal('confirmation-modal')">Cancelar</button>
+            <button class="btn next-btn primary" id="confirm-action-btn" 
+                    onclick="finalizeScenario('<%= activeScenario.scenarioId %>')">
+                Confirmar y Avanzar
+            </button>
+        </div>
+    </div>
+</div>
+
+<!-- 3. Modal de Detalle de Alerta (Para el drill-down) -->
+<div class="modal-overlay" id="alert-detail-modal">
+    <div class="modal-content" style="max-width: 600px;">
+        <div class="modal-header" id="alert-detail-title">Detalle de Alerta</div>
+        <div class="modal-body">
+            <p><strong>Tipo:</strong> <span id="detail-alert-type"></span></p>
+            <p><strong>Severidad:</strong> <span id="detail-alert-severity"></span></p>
+            <p><strong>Mensaje:</strong> <span id="detail-alert-message"></span></p>
+            <hr style="margin: 15px 0;">
+            <p><strong>Detalle de Impacto:</strong></p>
+            <p id="detail-alert-impact">
+                El riesgo de <strong id="detail-alert-risk-type"></strong> en los trimestres críticos 
+                (Q3-Q4) representa un potencial impacto financiero de pérdida de ventas de 
+                <strong style="color: #dc3545;" id="detail-alert-loss-value">N/A</strong>. 
+                Se recomienda revisar la estrategia de inventario para el producto en riesgo.
+            </p>
+        </div>
+        <div class="modal-footer">
+            <button class="btn back-btn" onclick="hideModal('alert-detail-modal')">Cerrar</button>
+        </div>
+    </div>
+</div>
+
+<!-- Carga de Chart.js y Script del simulador -->
+<script src="https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js"></script>
+<script src="/js/simulador.js"></script>
+<script>
+    // Inicializar el gráfico con los datos iniciales
+    // Se utiliza JSON.stringify para pasar el objeto completo de forma segura
+    // La función initializeChart está en simulador.js
+    initializeChart(<%- JSON.stringify(chartData) %>); 
+
+    // Inicializar el botón de confirmación con el escenario activo inicial
+    document.getElementById('confirm-action-btn').setAttribute('onclick', `finalizeScenario('${activeScenario.scenarioId}')`);
+</script>

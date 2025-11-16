@@ -1,0 +1,38 @@
+<%- include('layout', { body: `
+<div class="container">
+  
+  <div class="card">
+    <h1>Carga de Histórico de Ventas (CSV)</h1>
+
+    <p class="subtitle">
+      Carga tu archivo CSV para generar la base histórica de ventas.
+    </p>
+
+    <form id="uploadForm" enctype="multipart/form-data" class="upload-box">
+      
+      <label for="csvFile" class="drop-area">
+        <span id="drop-text">Arrastra tu archivo aquí o haz click para seleccionar</span>
+        
+        <span id="file-display" style="font-weight: bold; color: #1a73e8; display: none;"></span>
+      </label>
+
+      <input type="file" id="csvFile" name="csvFile" accept=".csv" hidden>
+
+      </form>
+
+    <div class="progress">
+      <div id="progress-bar"></div>
+    </div>
+
+    <div id="upload-status" class="status"></div>
+
+    <button id="continueBtn" class="btn-secondary" disabled>
+      Continuar a previsualización
+    </button>
+
+  </div>
+
+</div>
+
+<script src="/js/upload.js"></script>
+` }) %>
