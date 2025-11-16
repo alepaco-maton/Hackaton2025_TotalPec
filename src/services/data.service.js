@@ -12,7 +12,7 @@ const HISTORICAL_DB = {
     // Datos globales de la aplicación
     header: {
         title: "Simulador de Ventas y Compras",
-        userName: "Juan Perez",
+        userName: "David Padilla",
         userRole: "Gerente de Línea"
     },
     // Estatus de la carga (reutilizado del JSON)

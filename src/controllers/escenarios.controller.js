@@ -25,7 +25,7 @@ exports.renderPage = (req, res) => {
         // una buena práctica es siempre pasar el objeto 'data' para el
         // futuro dinamismo (ej. para el nombre del usuario, el conteo de ítems, etc.)
         res.render('escenarios', {
-            // Datos del header (Juan Perez, Rol, etc.)
+            // Datos del header (David Padilla, Rol, etc.)
             header: viewData.header,
             // Lista de ítems
             items: viewData.items,
