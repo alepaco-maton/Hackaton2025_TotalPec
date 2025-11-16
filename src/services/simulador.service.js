@@ -168,8 +168,12 @@ async function finalizeSimulation(scenarioId) {
 }
 
 
+
+
 module.exports = {
     getSimulationData,
     setActiveScenario,
     finalizeSimulation,
+    // AÑADE ESTA LÍNEA: Exportar el objeto MOCKED_SCENARIOS
+    MOCKED_SCENARIOS, 
 };

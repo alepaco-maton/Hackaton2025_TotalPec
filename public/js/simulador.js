@@ -249,12 +249,19 @@ async function finalizeScenario(scenarioId) {
             throw new Error(errorData.error || 'Error al finalizar la simulación.');
         }
 
+
+
+
+
+
+
         // Usar modal para mensaje de éxito y luego redirigir
         showModal('Simulación Finalizada', 'Escenario seleccionado. Avanzando a la generación del Reporte Final.');
         
-        // Esperar un breve momento antes de redirigir (mejor UX que una redirección inmediata)
+        // Esperar un breve momento antes de redirigir
         setTimeout(() => {
-            window.location.href = '/reporte-final'; 
+            // RUTA CORREGIDA según upload.routes.js
+            window.location.href = '/reports/final'; 
         }, 1500); 
 
     } catch (error) {

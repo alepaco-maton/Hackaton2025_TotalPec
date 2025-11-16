@@ -1,8 +1,10 @@
-// services/simulation.service.js (Archivo original adaptado)
+// src/services/simulation.service.js
+// Archivo de servicio para la simulación y reportes finales.
 
-// ... MOCKED_SCENARIOS, formatChartData, getSimulationData, setActiveScenario ...
+// 1. DEPENDENCIA CRÍTICA: Importamos MOCKED_SCENARIOS para el cálculo del escenario óptimo
+const { MOCKED_SCENARIOS } = require('./simulador.service'); 
 
-// DATOS MOCK para la tabla de compras
+// 2. DATOS MOCK DE REPORTE (Asegurar que existan como 'const')
 const MOCKED_PURCHASE_SUGGESTIONS = [
     { 
         item: "Aceite Sintético", 
@@ -34,19 +36,18 @@ const MOCKED_PURCHASE_SUGGESTIONS = [
     }
 ];
 
-// DATOS MOCK para el texto de justificación
 const MOCKED_JUSTIFICATION = {
-    // Texto coincidente con la imagen proporcionada
     selectionLogic: "El escenario Optimista fue selecatado porque offer 18% de incremento en 18% de Margen Bruto, superar al Realista, con un solo moación de la rigesgo manejable de quiebre de stock en solo el 5% de semanas.",
     mitigation: "El stock sugerido evita 85% de competas de alerta sobre-inventario glendo generado en san escenario Conservador."
 };
+
 
 /**
  * Obtiene todos los datos necesarios para la pantalla de Decisión Ejecutiva.
  * @returns {object} Todos los datos del reporte.
  */
 async function getFinalReportData() {
-    // En un entorno real, buscaríamos el escenario ACTIVO y calcularíamos todo.
+    // Busca el escenario activo o usa el segundo (Optimista) como fallback
     const optimalScenario = MOCKED_SCENARIOS.find(s => s.status === 'Active') || MOCKED_SCENARIOS[1];
 
     return {
@@ -63,8 +64,7 @@ async function getFinalReportData() {
     };
 }
 
-// Añadir al export
 module.exports = {
-    // ... getSimulationData, setActiveScenario, finalizeSimulation,
     getFinalReportData,
+    // (Incluye otras funciones de simulación si son necesarias en este archivo)
 };
