@@ -22,44 +22,82 @@ const HISTORICAL_DB = {
     },
     // Lista completa de ítems
     items: [
-        {"id": "item1", "name": "OUR10002030 - Brasil"},
-        {"id": "item2", "name": "OUR10003726 - Brasil", "selected": true}, // Ítem por defecto
-        {"id": "item3", "name": "OUR10003812 - Brasil"},
-        {"id": "item4", "name": "BIO130350 - Argentina"},
-        {"id": "item5", "name": "OUR10003727 - Brasil"},
-        {"id": "item6", "name": "OUR10002029 - Brasil"}
+        {"id": "item1", "name": "OUR10002030 - Brasil (Alto Volumen)"},
+        {"id": "item2", "name": "OUR10003726 - Brasil (Pico Estacional)", "selected": true}, // Ítem por defecto
+        {"id": "item3", "name": "NUE1200000 - Chile (Volumen Bajo)"},
+        {"id": "item4", "name": "BIO130350 - Argentina (Proyección Alta)"},
+        {"id": "item5", "name": "VTX5000000 - México (Volumen Muy Alto)"}
     ],
     // Datos detallados para cada ítem (Simulación de datos procesados)
     itemDetails: {
-        "item2": { // Filtro de Aceite (Modelo X)
-            // Simulación de datos de gráfico (ventas y pronóstico)
+        "item2": { // OUR10003726 - Brasil (Pico Estacional)
+            // Simulación de datos de gráfico (ventas y pronóstico - picos Q3/Q4)
             chartData: [
-                {"x": "Sem 1", "y1": 100, "y2": 80},
-                {"x": "Sem 2", "y1": 200, "y2": 120},
-                {"x": "Sem 3", "y1": 500, "y2": 300},
-                {"x": "Sem 4", "y1": 700, "y2": 600},
+                {"x": "Sem 1", "y1": 100, "y2": 90},
+                {"x": "Sem 2", "y1": 120, "y2": 110},
+                {"x": "Sem 3", "y1": 150, "y2": 140},
+                {"x": "Sem 4", "y1": 180, "y2": 170},
                 // ... datos para 52 semanas
             ],
-            // Métricas clave
+            // Métricas clave (Coherentes con 5200 unid/año)
             metrics: [
                 {"label": "Total Units Sold (2023)", "value": "5,200", "highlight": true},
                 {"label": "Average Weekly Sales", "value": "100", "highlight": true},
                 {"label": "Peak Season", "value": "July-Aug", "icon": "info", "tooltip": "Basado en tendencias históricas"}
             ]
         },
-        "item1": { // Aceite Sintético 5W-40 - 1L
+        "item1": { // OUR10002030 - Brasil (Alto Volumen) - Bajo en estacionalidad
             chartData: [
-                {"x": "Sem 1", "y1": 800, "y2": 750},
-                {"x": "Sem 2", "y1": 780, "y2": 800},
-                // ...
+                {"x": "Sem 1", "y1": 150, "y2": 155},
+                {"x": "Sem 2", "y1": 155, "y2": 160},
+                {"x": "Sem 3", "y1": 145, "y2": 150},
+                {"x": "Sem 4", "y1": 160, "y2": 165},
             ],
             metrics: [
-                {"label": "Total Units Sold (2023)", "value": "35,000"},
-                {"label": "Average Weekly Sales", "value": "673"},
+                {"label": "Total Units Sold (2023)", "value": "7,800"},
+                {"label": "Average Weekly Sales", "value": "150"},
                 {"label": "Peak Season", "value": "Oct-Nov"}
             ]
+        },
+        "item3": { // NUE1200000 - Chile (Volumen Bajo) - Estable
+            chartData: [
+                {"x": "Sem 1", "y1": 30, "y2": 35},
+                {"x": "Sem 2", "y1": 35, "y2": 40},
+                {"x": "Sem 3", "y1": 30, "y2": 35},
+                {"x": "Sem 4", "y1": 40, "y2": 45},
+            ],
+            metrics: [
+                {"label": "Total Units Sold (2023)", "value": "1,560"},
+                {"label": "Average Weekly Sales", "value": "30"},
+                {"label": "Peak Season", "value": "Mar-Apr"}
+            ]
+        },
+        "item4": { // BIO130350 - Argentina (Proyección Alta) - Crecimiento Sostenido
+            chartData: [
+                {"x": "Sem 1", "y1": 80, "y2": 100},
+                {"x": "Sem 2", "y1": 90, "y2": 110},
+                {"x": "Sem 3", "y1": 100, "y2": 120},
+                {"x": "Sem 4", "y1": 110, "y2": 130},
+            ],
+            metrics: [
+                {"label": "Total Units Sold (2023)", "value": "4,680"},
+                {"label": "Average Weekly Sales", "value": "90"},
+                {"label": "Peak Season", "value": "Sep-Oct"}
+            ]
+        },
+        "item5": { // VTX5000000 - México (Volumen Muy Alto) - Máxima Estabilidad
+            chartData: [
+                {"x": "Sem 1", "y1": 250, "y2": 255},
+                {"x": "Sem 2", "y1": 260, "y2": 265},
+                {"x": "Sem 3", "y1": 255, "y2": 260},
+                {"x": "Sem 4", "y1": 270, "y2": 275},
+            ],
+            metrics: [
+                {"label": "Total Units Sold (2023)", "value": "13,260"},
+                {"label": "Average Weekly Sales", "value": "255"},
+                {"label": "Peak Season", "value": "Dec-Jan"}
+            ]
         }
-        // ... detalles para otros ítems
     }
 };
 
@@ -113,13 +151,19 @@ exports.getItemHistoricalData = (itemId, granularity = 'weekly') => {
     if (data && granularity === 'monthly') {
         // En un caso real, la chartData cambiaría a puntos mensuales.
         // Aquí simulamos que sí tenemos la data.
+        
+        // Se calcula el promedio mensual a partir del semanal (x 4.33 semanas/mes)
+        const avgWeeklySales = data.metrics.find(m => m.label === "Average Weekly Sales")?.value;
+        const avgMonthlySales = avgWeeklySales ? Math.round(parseFloat(avgWeeklySales.replace(/,/g, '')) * 4.33) : 'N/A';
+        
         return {
             ...data,
-            metrics: [
-                {"label": "Total Units Sold (2023)", "value": "5,200"},
-                {"label": "Average Monthly Sales", "value": "433"}, // Promedio mensual
-                {"label": "Peak Season", "value": "July-Aug"}
-            ]
+            metrics: data.metrics.map(metric => {
+                if (metric.label === "Average Weekly Sales") {
+                    return {"label": "Average Monthly Sales", "value": String(avgMonthlySales), "highlight": metric.highlight};
+                }
+                return metric;
+            })
         };
     }
 

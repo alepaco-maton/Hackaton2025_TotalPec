@@ -1,4 +1,4 @@
-// escenarios.js - CÓDIGO ACTUALIZADO CON CHART.JS
+// escenarios.js - CÓDIGO ACTUALIZADO CON DATOS FICTICIOS DINÁMICOS Y LÓGICA DE BOTONES
 
 // ---------------------------------------------------------------------
 // --- Elementos del DOM y Variables Globales ---
@@ -7,32 +7,75 @@
 const productList = document.getElementById('productList');
 const productSearch = document.getElementById('productSearch');
 const weeklyBtn = document.getElementById('weeklyBtn');
-const monthlyBtn = document.getElementById('monthlyBtn'); // Cambiado de 'monthlyToggle' a 'monthlyBtn'
+const monthlyBtn = document.getElementById('monthlyBtn'); 
 const backBtn = document.getElementById('backBtn');
 const nextBtn = document.getElementById('nextBtn');
 const applyTrendToggle = document.getElementById('applyTrendToggle');
 const chartContainer = document.getElementById('salesChart'); // Canvas element
 
+// Elementos para Key Metrics (DEBES AGREGAR ESTOS IDs A TU HTML)
+const totalUnitsElement = document.getElementById('metricTotalUnits');
+const avgWeeklySalesElement = document.getElementById('metricAvgWeeklySales');
+const bestPeriodElement = document.getElementById('metricBestPeriod');
+
 let salesChartInstance = null; // Variable para almacenar la instancia del gráfico
 
 
 // ---------------------------------------------------------------------
-// --- Datos Ficticios para la Gráfica ---
+// --- Datos Ficticios para Gráficas y Métricas (Simulación Avanzada) ---
 // ---------------------------------------------------------------------
 
-// Simulación de datos: Ventas (y1) y Forecast (y2)
-const FAKE_CHART_DATA = {
-    weekly: {
-        labels: ['S-1', 'S-2', 'S-3', 'S-4', 'S-5', 'S-6', 'S-7', 'S-8'],
-        sales: [500, 550, 480, 600, 650, 700, 620, 750],
-        forecast: [480, 520, 500, 580, 630, 680, 650, 720]
+const ALL_ITEM_DATA = {
+    // Item 1: OUR10003726 (Filtro de Aceite) - Tendencia Creciente Suave
+    'OUR10003726': {
+        metrics: { totalUnits: 5200, avgWeekly: 100, bestPeriod: 'July - Aug' },
+        weekly: {
+            labels: Array.from({ length: 12 }, (_, i) => `S-${i + 1}`),
+            sales: [95, 100, 105, 102, 110, 115, 112, 120, 125, 122, 130, 135],
+            forecast: [100, 105, 108, 110, 115, 118, 120, 125, 128, 130, 135, 140]
+        },
+        monthly: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+            sales: [400, 420, 450, 480, 500, 550],
+            forecast: [410, 440, 470, 500, 530, 580]
+        }
     },
-    monthly: {
-        labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun', 'Jul', 'Ago'],
-        sales: [2000, 2200, 1900, 2500, 2800, 3100, 2600, 3300],
-        forecast: [1900, 2100, 2000, 2400, 2700, 3000, 2700, 3200]
+    // Item 2: OUR10002030 (Batería Premium) - Estacionalidad Marcada
+    'OUR10002030': {
+        metrics: { totalUnits: 7500, avgWeekly: 144, bestPeriod: 'Dec - Jan (Pico)' },
+        weekly: {
+            labels: Array.from({ length: 12 }, (_, i) => `S-${i + 1}`),
+            sales: [150, 160, 140, 180, 250, 280, 190, 150, 130, 140, 160, 170], 
+            forecast: [155, 165, 150, 190, 260, 290, 200, 160, 140, 150, 170, 180]
+        },
+        monthly: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+            sales: [600, 650, 1200, 1500, 800, 750],
+            forecast: [620, 700, 1250, 1550, 850, 800]
+        }
+    },
+    // Item 3: BIO130350 (Lubricante Industrial) - Irregular con Evento Único
+    'BIO130350': {
+        metrics: { totalUnits: 3100, avgWeekly: 60, bestPeriod: 'Week 8 (Promoción)' },
+        weekly: {
+            labels: Array.from({ length: 12 }, (_, i) => `S-${i + 1}`),
+            sales: [50, 55, 60, 50, 65, 55, 70, 180, 60, 45, 50, 55], 
+            forecast: [55, 60, 60, 55, 70, 60, 75, 190, 65, 50, 55, 60]
+        },
+        monthly: {
+            labels: ['Ene', 'Feb', 'Mar', 'Abr', 'May', 'Jun'],
+            sales: [250, 280, 300, 270, 290, 350],
+            forecast: [260, 290, 310, 280, 300, 360]
+        }
+    },
+    // Ítem por defecto si no se encuentra (IMPORTANTE: MANTENER AL MENOS 1 ÍTEM DE EJEMPLO EN EL HTML)
+    'default': {
+        metrics: { totalUnits: 0, avgWeekly: 0, bestPeriod: 'N/A' },
+        weekly: { labels: ['S-1'], sales: [0], forecast: [0] },
+        monthly: { labels: ['Ene'], sales: [0], forecast: [0] }
     }
 };
+
 
 // ---------------------------------------------------------------------
 // --- Funciones de Gráfico (Chart.js) ---
@@ -41,9 +84,9 @@ const FAKE_CHART_DATA = {
 /**
  * Renderiza o actualiza el gráfico de líneas con los datos proporcionados.
  * @param {string} period - Granularidad ('weekly' o 'monthly').
+ * @param {object} dataSet - El objeto de datos (sales, forecast, labels) para el ítem.
  */
-const renderChart = (period) => {
-    const dataSet = FAKE_CHART_DATA[period];
+const renderChart = (period, dataSet) => {
     const isWeekly = period === 'weekly';
     const unitLabel = isWeekly ? 'Unidades Semanales' : 'Unidades Mensuales';
 
@@ -60,16 +103,16 @@ const renderChart = (period) => {
                 {
                     label: 'Ventas Reales',
                     data: dataSet.sales,
-                    borderColor: '#1a73e8', // Azul (color de info en tu CSS)
+                    borderColor: '#1a73e8', // Azul (Ventas Históricas)
                     backgroundColor: 'rgba(26, 115, 232, 0.1)',
                     borderWidth: 2,
                     pointRadius: 3,
                     tension: 0.4
                 },
                 {
-                    label: 'Forecast',
+                    label: 'Forecast Base',
                     data: dataSet.forecast,
-                    borderColor: '#318a77', // Teal (color primario en tu CSS)
+                    borderColor: '#318a77', // Teal (Pronóstico)
                     backgroundColor: 'rgba(49, 138, 119, 0.1)',
                     borderDash: [5, 5],
                     borderWidth: 2,
@@ -80,29 +123,18 @@ const renderChart = (period) => {
         },
         options: {
             responsive: true,
-            maintainAspectRatio: false, // Importante para que el contenedor CSS defina la altura
+            maintainAspectRatio: false, 
             plugins: {
-                legend: {
-                    display: true,
-                    position: 'top',
-                },
-                title: {
-                    display: false,
-                }
+                legend: { display: true, position: 'top' },
+                title: { display: false }
             },
             scales: {
                 y: {
                     beginAtZero: true,
-                    title: {
-                        display: true,
-                        text: unitLabel
-                    }
+                    title: { display: true, text: unitLabel }
                 },
                 x: {
-                    title: {
-                        display: true,
-                        text: isWeekly ? 'Semanas' : 'Meses'
-                    }
+                    title: { display: true, text: isWeekly ? 'Semanas' : 'Meses' }
                 }
             }
         }
@@ -115,34 +147,39 @@ const renderChart = (period) => {
 
 
 // ---------------------------------------------------------------------
-// --- Funciones de Lógica de Negocio (Actualizadas) ---
+// --- Funciones de Lógica de Negocio ---
 // ---------------------------------------------------------------------
 
 /**
- * Simula la actualización de datos históricos y métricas.
- * Ahora incluye el renderizado del gráfico.
+ * Actualiza los datos históricos, métricas y el gráfico según el ítem y período.
  */
-const updateHistoricalData = async (itemId, period) => {
-    console.log(`[DATA] Solicitando datos para Ítem: ${itemId}, Período: ${period}`);
+const updateHistoricalData = (itemId, period) => {
+    const itemData = ALL_ITEM_DATA[itemId] || ALL_ITEM_DATA['default'];
     
-    // 1. Renderizar el nuevo gráfico
-    renderChart(period); 
+    // 1. Obtener el set de datos correcto
+    const dataSet = itemData[period] || ALL_ITEM_DATA['default'][period];
 
-    // 2. Simulación de actualización de la UI
+    // 2. Renderizar el nuevo gráfico
+    renderChart(period, dataSet);
+
+    // 3. Actualizar Key Metrics
+    if (totalUnitsElement) totalUnitsElement.innerText = itemData.metrics.totalUnits.toLocaleString();
+    if (avgWeeklySalesElement) avgWeeklySalesElement.innerText = itemData.metrics.avgWeekly.toLocaleString();
+    if (bestPeriodElement) bestPeriodElement.innerText = itemData.metrics.bestPeriod;
+
+    // 4. Actualizar títulos
     const historicalTitle = document.querySelector('.p3-col-2 .scenario-title');
     if (historicalTitle) {
-        historicalTitle.innerText = `Historical Sales Data (Ítem: ${itemId})`;
+        historicalTitle.innerText = `Historical Sales Data (ID: ${itemId})`;
     }
-
-    // 3. Actualizar el rango de fecha (simulación)
     const dateRangeSpan = document.querySelector('.chart-container > span:last-child');
     if (dateRangeSpan) {
-        dateRangeSpan.innerText = period === 'weekly' ? 'Jan 2023 - Dec 2023 (Weekly)' : 'Jan 2023 - Dec 2023 (Monthly)';
+        dateRangeSpan.innerText = period === 'weekly' ? 'Last 12 Weeks' : 'Last 6 Months';
     }
 };
 
 /**
- * Maneja la lógica de selección de un ítem en la lista. (Sin cambios mayores)
+ * Maneja la lógica de selección de un ítem en la lista.
  */
 const handleItemSelection = (selectedElement) => {
     productList.querySelectorAll('.list-item').forEach(item => {
@@ -159,10 +196,10 @@ const handleItemSelection = (selectedElement) => {
 
 
 // ---------------------------------------------------------------------
-// --- Event Listeners (Actualizados para usar Monthly Button) ---
+// --- Event Listeners ---
 // ---------------------------------------------------------------------
 
-// 1. Manejo de la Selección de Ítems (Sin cambios)
+// 1. Manejo de la Selección de Ítems
 if (productList) {
     productList.addEventListener('click', (event) => {
         const item = event.target.closest('.list-item');
@@ -191,30 +228,22 @@ if (productSearch && productList) {
     });
 }
 
-// 3. Selección de Período (Weekly/Monthly)
+// 3. Selección de Período (Weekly/Monthly) - Lógica de estilo y activo
 const handlePeriodSelection = (selectedButton, otherButton, period) => {
-   
-
-    // Solo proceder si el botón seleccionado no está ya activo
     if (!selectedButton.classList.contains('active')) {
-        // --- 1. CONFIGURAR EL BOTÓN SELECCIONADO (Activo / Primario) ---
-        selectedButton.classList.add('active');
-        selectedButton.classList.remove('btn-secondary'); // Quita secundario
-        selectedButton.classList.add('btn-primary');    // Añade primario
+        // CONFIGURAR EL BOTÓN SELECCIONADO (Activo / Primario)
+        selectedButton.classList.add('active', 'btn-primary');
+        selectedButton.classList.remove('btn-secondary');    
 
-        // --- 2. CONFIGURAR EL OTRO BOTÓN (Inactivo / Secundario) ---
-        otherButton.classList.remove('active');
-        otherButton.classList.remove('btn-primary');     // Quita primario
-        otherButton.classList.add('btn-secondary');     // Añade secundario
+        // CONFIGURAR EL OTRO BOTÓN (Inactivo / Secundario)
+        otherButton.classList.remove('active', 'btn-primary');
+        otherButton.classList.add('btn-secondary');     
 
-        // ... (El resto de tu lógica de negocio) ...
-
+        // Ejecutar lógica de negocio
         const selectedItem = productList.querySelector('.list-item.selected');
-        if (selectedItem) {
-            const itemId = selectedItem.innerText.split(' ')[0];
-            // Actualiza la UI (gráfico y métricas)
-            updateHistoricalData(itemId, period); 
-        }
+        const itemId = selectedItem ? selectedItem.innerText.split(' ')[0] : 'default';
+        
+        updateHistoricalData(itemId, period);
     }
 };
 
@@ -234,10 +263,11 @@ if (applyTrendToggle) {
 }
 
 
-// 5. Botones de Navegación (Footer Actions) (Sin cambios)
+// 5. Botones de Navegación (Footer Actions) - Redirección a /cargar-datos
 if (backBtn) {
     backBtn.addEventListener('click', () => {
-        window.location.href = '/upload'; 
+        // Redirige a la página de carga de datos
+        window.location.href = '/cargar-datos'; 
     });
 }
 
@@ -254,17 +284,26 @@ if (nextBtn) {
 
 document.addEventListener('DOMContentLoaded', () => {
     const defaultSelectedItem = productList ? productList.querySelector('.list-item.selected') : null;
+    let initialItemId = 'default';
     
-    // Inicializar el gráfico y datos al cargar la página
-    if (defaultSelectedItem) {
-        const itemId = defaultSelectedItem.innerText.split(' ')[0];
-        // Iniciar con la vista semanal ('weekly')
-        updateHistoricalData(itemId, 'weekly'); 
-    } else {
-        // Fallback: si no hay ítem seleccionado, dibujar el gráfico con datos por defecto
-        renderChart('weekly');
+    // Asegurar que Weekly esté activo por defecto (si el HTML no lo garantiza)
+    if (weeklyBtn) {
+        weeklyBtn.classList.add('active', 'btn-primary');
+        weeklyBtn.classList.remove('btn-secondary');
+    }
+    if (monthlyBtn) {
+        monthlyBtn.classList.remove('active', 'btn-primary');
+        monthlyBtn.classList.add('btn-secondary');
     }
 
-    // Asegurar que Weekly esté activo por defecto (ya que es la granularidad inicial)
-    if (weeklyBtn) weeklyBtn.classList.add('active');
+    // Seleccionar el primer ítem si no hay uno marcado como 'selected'
+    if (!defaultSelectedItem && productList && productList.children.length > 0) {
+        productList.children[0].classList.add('selected');
+        initialItemId = productList.children[0].innerText.split(' ')[0];
+    } else if (defaultSelectedItem) {
+        initialItemId = defaultSelectedItem.innerText.split(' ')[0];
+    }
+
+    // Inicializar el gráfico y datos
+    updateHistoricalData(initialItemId, 'weekly'); 
 });

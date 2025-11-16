@@ -1,6 +1,5 @@
 <%
-// Simulación de datos pasados por el controlador de Node.js
-// En una aplicación real, esto se pasaría como 'res.render('index', { appData: data })'
+// Simulación de datos pasados por el controlador de Node.js (Actualizado para Batería Premium - OUR10002030)
 const appData = {
     screenName: "P4: Creación y Definición de Escenarios",
     header: {
@@ -9,8 +8,8 @@ const appData = {
         userRole: "Gerente de Línea"
     },
     subHeader: {
-        status: "Configurando escenarios para: Filtro de Aceite (Modelo X)",
-        context: "Horizonte de pronóstico: 3 Meses | Simulación Semanal"
+        status: "Configurando escenarios para: Batería Premium (Modelo Y) - OUR10002030",
+        context: "Horizonte de pronóstico: 3 Meses | Simulación Semanal (Inicia antes de pico estacional)"
     },
     scenarios: [
         {
@@ -18,47 +17,47 @@ const appData = {
             label: "Escenario Realista",
             default: true,
             variables: [
-                { id: "precioVenta", label: "Precio de Venta", type: "currencyInput", unit: "$", placeholder: "Precio base actual: $15.00", currentValue: 15.00 },
-                { id: "tasaCrecimiento", label: "Demanda / Tasa de Crecimiento", type: "percentageInput", unit: "%", placeholder: "Ej: +10% vs. año anterior", currentValue: 5, isDelta: true },
-                { id: "promociones", label: "Promociones (Descuento Promedio)", type: "percentageInput", unit: "%", placeholder: "Ej: -5% de descuento promedio", currentValue: -2, isDelta: true },
-                { id: "costoItem", label: "Costo por Ítem (Variable)", type: "currencyInput", unit: "$", placeholder: "Costo actual: $8.00", currentValue: 8.00 },
-                { id: "stockInicial", label: "Inventario / Stock Inicial", type: "unitInput", unit: "Unidades", placeholder: "Ej: 1,500 unidades", currentValue: 1500 }
+                { id: "precioVenta", label: "Precio de Venta", type: "currencyInput", unit: "$", placeholder: "Precio base actual: $80.00", currentValue: 80.00 },
+                { id: "tasaCrecimiento", label: "Demanda / Tasa de Crecimiento", type: "percentageInput", unit: "%", placeholder: "Ej: +3% vs. año anterior", currentValue: 3, isDelta: true },
+                { id: "promociones", label: "Promociones (Descuento Promedio)", type: "percentageInput", unit: "%", placeholder: "Ej: -3% de descuento promedio", currentValue: -3, isDelta: true },
+                { id: "costoItem", label: "Costo por Ítem (Variable)", type: "currencyInput", unit: "$", placeholder: "Costo actual: $55.00", currentValue: 55.00 },
+                { id: "stockInicial", label: "Inventario / Stock Inicial", type: "unitInput", unit: "Unidades", placeholder: "Ej: 2,500 unidades", currentValue: 2500 }
             ]
         },
         {
             id: "optimista",
             label: "Escenario Optimista",
             variables: [
-                { id: "precioVenta", label: "Precio de Venta", type: "currencyInput", unit: "$", placeholder: "Precio base actual: $15.00", currentValue: 16.50 },
-                { id: "tasaCrecimiento", label: "Demanda / Tasa de Crecimiento", type: "percentageInput", unit: "%", placeholder: "Ej: +10% vs. año anterior", currentValue: 15, isDelta: true },
-                { id: "promociones", label: "Promociones (Descuento Promedio)", type: "percentageInput", unit: "%", placeholder: "Ej: -5% de descuento promedio", currentValue: 0, isDelta: true },
-                { id: "costoItem", label: "Costo por Ítem (Variable)", type: "currencyInput", unit: "$", placeholder: "Costo actual: $8.00", currentValue: 7.50 },
-                { id: "stockInicial", label: "Inventario / Stock Inicial", type: "unitInput", unit: "Unidades", placeholder: "Ej: 1,500 unidades", currentValue: 2000 }
+                { id: "precioVenta", label: "Precio de Venta", type: "currencyInput", unit: "$", placeholder: "Precio base actual: $80.00", currentValue: 85.00 },
+                { id: "tasaCrecimiento", label: "Demanda / Tasa de Crecimiento", type: "percentageInput", unit: "%", placeholder: "Ej: +3% vs. año anterior", currentValue: 8, isDelta: true },
+                { id: "promociones", label: "Promociones (Descuento Promedio)", type: "percentageInput", unit: "%", placeholder: "Ej: -3% de descuento promedio", currentValue: -1, isDelta: true },
+                { id: "costoItem", label: "Costo por Ítem (Variable)", type: "currencyInput", unit: "$", placeholder: "Costo actual: $55.00", currentValue: 53.00 },
+                { id: "stockInicial", label: "Inventario / Stock Inicial", type: "unitInput", unit: "Unidades", placeholder: "Ej: 2,500 unidades", currentValue: 3500 }
             ]
         },
         {
             id: "conservador",
             label: "Escenario Conservador",
             variables: [
-                { id: "precioVenta", label: "Precio de Venta", type: "currencyInput", unit: "$", placeholder: "Precio base actual: $15.00", currentValue: 14.00 },
-                { id: "tasaCrecimiento", label: "Demanda / Tasa de Crecimiento", type: "percentageInput", unit: "%", placeholder: "Ej: +10% vs. año anterior", currentValue: -5, isDelta: true },
-                { id: "promociones", label: "Promociones (Descuento Promedio)", type: "percentageInput", unit: "%", placeholder: "Ej: -5% de descuento promedio", currentValue: -5, isDelta: true },
-                { id: "costoItem", label: "Costo por Ítem (Variable)", type: "currencyInput", unit: "$", placeholder: "Costo actual: $8.00", currentValue: 8.50 },
-                { id: "stockInicial", label: "Inventario / Stock Inicial", type: "unitInput", unit: "Unidades", placeholder: "Ej: 1,500 unidades", currentValue: 1000 }
+                { id: "precioVenta", label: "Precio de Venta", type: "currencyInput", unit: "$", placeholder: "Precio base actual: $80.00", currentValue: 75.00 },
+                { id: "tasaCrecimiento", label: "Demanda / Tasa de Crecimiento", type: "percentageInput", unit: "%", placeholder: "Ej: +3% vs. año anterior", currentValue: 0, isDelta: true },
+                { id: "promociones", label: "Promociones (Descuento Promedio)", type: "percentageInput", unit: "%", placeholder: "Ej: -3% de descuento promedio", currentValue: -5, isDelta: true },
+                { id: "costoItem", label: "Costo por Ítem (Variable)", type: "currencyInput", unit: "$", placeholder: "Costo actual: $55.00", currentValue: 58.00 },
+                { id: "stockInicial", label: "Inventario / Stock Inicial", type: "unitInput", unit: "Unidades", placeholder: "Ej: 2,500 unidades", currentValue: 1800 }
             ]
         }
     ],
     summaryMetrics: [
-        { label: "Precio de Venta Base:", value: "$15.00" },
-        { label: "Costo por Ítem Base:", value: "$8.00" },
-        { label: "Tasa de Crecimiento Histórica:", value: "+3.5% (anual)" }
+        { label: "Precio de Venta Base:", value: "$80.00" },
+        { label: "Costo por Ítem Base:", value: "$55.00" },
+        { label: "Tasa de Crecimiento Histórica:", value: "+2.5% (anual)" },
+        { label: "Ventas Promedio Semanal:", value: "144 Unidades" }
     ]
 };
 %>
 
 <style>
-
-     /* ----- Reset simple ----- */
+    /* ----- Reset simple ----- */
 * {
     margin: 0;
     padding: 0;
@@ -100,7 +99,6 @@ body {
 /* --- Layout General y Card (Se usa para todas las secciones) --- */
 /* --------------------------------------------------------------------- */
 
-/* Adaptado a max-width: 1200px para pantallas grandes, como en p3.css */
 .page-container {
     max-width: 1200px; 
     margin: auto;
@@ -114,10 +112,9 @@ body {
     border: 1px solid var(--color-border-light); 
 }
 
-/* Ajuste del padding de la card en escritorio */
 @media (min-width: 768px) {
     .scenario-panel, .sub-header, .info-box, .help-section {
-        padding: 30px; /* Un poco menos para la rejilla */
+        padding: 30px; 
     }
 }
 
@@ -129,7 +126,7 @@ body {
     margin-bottom: 20px;
 }
 .header-bar h1 {
-    font-size: 30px; /* Usando el tamaño de .p3-screen-title */
+    font-size: 30px; 
     font-weight: bold;
     margin: 0;
     color: var(--color-text-dark);
@@ -141,7 +138,7 @@ body {
 
 .sub-header {
     margin-bottom: 25px;
-    box-shadow: none; /* Quitamos la sombra de la sub-cabecera */
+    box-shadow: none; 
     border: none;
     padding: 15px 25px;
 }
@@ -156,7 +153,6 @@ body {
     font-size: 15px;
 }
 
-/* Título de sección (2. Creación y Definición de Escenarios) */
 section h2 { 
     font-size: 18px;
     font-weight: bold;
@@ -165,32 +161,11 @@ section h2 {
     color: var(--color-text-dark);
 }
 
-.scenario-panel h3 { /* Título del escenario activo */
+.scenario-panel h3 { 
     font-size: 20px;
     font-weight: bold;
     margin-bottom: 15px;
     color: var(--color-text-dark);
-}
-
-/* --------------------------------------------------------------------- */
-/* --- Status de Carga de Archivo (Adaptado de .file-upload-status) --- */
-/* --------------------------------------------------------------------- */
-
-.file-upload-status {
-    padding: 15px;
-    background: var(--color-success-bg); 
-    border-radius: 8px;
-    border: 1px solid var(--color-success-border);
-    margin-bottom: 20px;
-}
-.status-message {
-    display: flex;
-    align-items: flex-start;
-    gap: 10px;
-}
-.status-message strong {
-    color: var(--color-primary-green);
-    font-weight: 600;
 }
 
 
@@ -219,6 +194,11 @@ section h2 {
     border-radius: 6px;
     transition: all 0.3s ease;
     white-space: nowrap; 
+    
+    /* ESTILOS CLAVE PARA ELIMINAR */
+    display: flex; /* Permite alinear el texto y la 'x' */
+    align-items: center;
+    gap: 0; /* Controlamos el espacio manualmente */
 }
 
 .tab-button:hover:not(.active) {
@@ -237,6 +217,27 @@ section h2 {
     font-weight: 600;
     margin-left: 10px;
 }
+
+/* NUEVO ESTILO: Botón de Eliminar (la 'x') */
+.delete-scenario-btn {
+    color: #cc0000; /* Rojo de advertencia */
+    font-weight: bold;
+    font-size: 16px;
+    margin-left: 5px; 
+    cursor: pointer;
+    line-height: 1; 
+    transition: color 0.2s;
+    padding: 0 4px 0 2px; /* Ajuste para el clic y separación */
+}
+
+.delete-scenario-btn:hover {
+    color: #ff3333;
+}
+
+.tab-button.active .delete-scenario-btn {
+    color: #a00000; /* Rojo más oscuro para contraste en pestaña activa */
+}
+
 
 /* --------------------------------------------------------------------- */
 /* --- Scenario Panel - Inputs (Lista de Variables) --- */
@@ -266,6 +267,17 @@ section h2 {
     color: var(--color-text-dark);
     font-weight: normal;
     flex-grow: 1; 
+}
+
+/* Hint para el comportamiento */
+.behavior-hint {
+    font-size: 12px;
+    color: var(--color-secondary-blue);
+    margin-left: 10px;
+    font-style: italic;
+    flex-shrink: 0;
+    max-width: 150px;
+    text-align: right;
 }
 
 .input-field-group {
@@ -301,7 +313,7 @@ section h2 {
 }
 
 /* --------------------------------------------------------------------- */
-/* --- Summary & Help Panel (Adaptado a una rejilla simple) --- */
+/* --- Summary & Help Panel --- */
 /* --------------------------------------------------------------------- */
 
 .summary-grid {
@@ -311,10 +323,9 @@ section h2 {
     margin-top: 30px;
 }
 
-/* Adaptación para escritorio: 2 columnas */
 @media (min-width: 768px) {
     .summary-grid {
-        grid-template-columns: 2fr 1.5fr; /* Info Box más grande, Ayuda más pequeña */
+        grid-template-columns: 2fr 1.5fr; 
     }
 }
 
@@ -344,13 +355,14 @@ section h2 {
 }
 
 .help-section {
-    background: #f0f8ff; /* Fondo claro para la guía rápida */
-    border-left: 5px solid var(--color-secondary-blue); /* Borde azul de información */
+    background: #f0f8ff; 
+    border-left: 5px solid var(--color-secondary-blue); 
     border-radius: 6px;
     border: none;
     box-shadow: none;
     padding: 15px;
 }
+
 .help-section h3 {
     border-bottom: none;
     padding-bottom: 0;
@@ -387,7 +399,6 @@ section h2 {
     transition: background-color 0.2s;
 }
 
-/* Botón Secundario (Back) */
 .back-button {
     background: var(--color-card);
     color: var(--color-text-dark);
@@ -398,7 +409,6 @@ section h2 {
     background: var(--color-hover-light);
 }
 
-/* Botón Primario (Generate Projections) */
 .generate-button {
     background: var(--color-primary-green); 
     color: white;
@@ -409,7 +419,6 @@ section h2 {
     background: #236557; 
 }
 
-/* Responsive Design para footer */
 @media (max-width: 768px) {
     .footer-actions {
         flex-direction: column;
@@ -421,7 +430,6 @@ section h2 {
 </style>
 
 <div class="page-container">
-    <!-- Header -->
     <header class="header-bar">
         <h1><%= appData.header.title %></h1>
         <div class="user-info">
@@ -430,18 +438,15 @@ section h2 {
         </div>
     </header>
 
-    <!-- Sub Header -->
     <div class="sub-header">
         <p><strong><%= appData.subHeader.status %></strong></p>
         <p><%= appData.subHeader.context %></p>
     </div>
 
-    <!-- 2. Creación y Definición de Escenarios -->
     <section>
         <h2>2. Creación y Definición de Escenarios</h2>
         <p class="description"><%= appData.scenarios[0].description || "Defina los supuestos clave para cada escenario. El sistema generará las proyecciones automáticas de ventas y rentabilidad." %></p>
 
-        <!-- Scenario Tabs -->
         <div id="scenarioTabs" class="scenario-tabs">
             <% appData.scenarios.forEach((scenario, index) => { %>
                 <button
@@ -454,13 +459,21 @@ section h2 {
             <button class="tab-button new-scenario" id="newScenarioTab">+ Nuevo Escenario</button>
         </div>
 
-        <!-- Scenario Panel (El contenido de las variables se genera para el escenario inicial) -->
         <div id="scenarioPanel" class="scenario-panel">
             <h3 id="currentScenarioTitle">Escenario Realista</h3>
             <div id="variableGroup" class="variable-group">
-                <% appData.scenarios[0].variables.forEach(variable => { %>
+                <% 
+                // Usamos el escenario por defecto (Realista) para el renderizado inicial
+                const defaultScenario = appData.scenarios.find(s => s.default) || appData.scenarios[0];
+
+                defaultScenario.variables.forEach(variable => { %>
                     <div class="input-container" data-variable-id="<%= variable.id %>" data-variable-type="<%= variable.type %>">
                         <label for="<%= variable.id %>"><%= variable.label %></label>
+                        
+                        <small class="behavior-hint">
+                            Afecta directamente los **<%= variable.id.includes('Venta') || variable.id.includes('Promociones') ? 'Ingresos' : variable.id.includes('Costo') ? 'Costos' : 'Inventario' %>**.
+                        </small>
+
                         <div class="input-field-group">
                             <input
                                 type="number"
@@ -472,15 +485,12 @@ section h2 {
                             />
                             <span class="unit"><%= variable.unit %></span>
                         </div>
-                        <!-- Sugerencia de comportamiento como ayuda para el usuario -->
-                        <small class="behavior-hint">Afecta <%= variable.id.includes('Venta') || variable.id.includes('Promociones') ? 'Ingresos' : variable.id.includes('Costo') ? 'Costos' : 'Inventario' %>.</small>
                     </div>
                 <% }) %>
             </div>
         </div>
     </section>
 
-    <!-- Resumen & Ayuda -->
     <section class="summary-grid">
         <div class="info-box">
             <h3>Valores Actuales (Históricos)</h3>
@@ -502,7 +512,6 @@ section h2 {
         </div>
     </section>
 
-    <!-- Footer Actions -->
     <footer class="footer-actions">
         <button class="action-button back-button">
             <span class="icon">←</span> Back
@@ -513,11 +522,9 @@ section h2 {
     </footer>
 </div>
 
-<!-- Script para inicializar la data en JS (Necesario para que scenario.js tenga acceso a la estructura) -->
 <script>
     // Inicializa los datos de la aplicación en el cliente
     window.appData = <%- JSON.stringify(appData) %>;
 </script>
 
-    
 <script src="/js/createScenario.js"></script>
