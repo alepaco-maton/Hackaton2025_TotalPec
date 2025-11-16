@@ -95,6 +95,10 @@ const startUploadProcess = async (file) => {
         // Habilitar botón de continuar
         continueBtn.disabled = false;
 
+        // NUEVA LÍNEA: Cambia la clase de estilo a btn-primary
+        continueBtn.classList.remove('btn-secondary');
+        continueBtn.classList.add('btn-primary');
+
     } catch (err) {
         // Manejo de Error
         console.error(err);

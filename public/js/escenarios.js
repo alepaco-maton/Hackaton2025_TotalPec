@@ -193,14 +193,27 @@ if (productSearch && productList) {
 
 // 3. Selección de Período (Weekly/Monthly)
 const handlePeriodSelection = (selectedButton, otherButton, period) => {
+   
+
+    // Solo proceder si el botón seleccionado no está ya activo
     if (!selectedButton.classList.contains('active')) {
+        // --- 1. CONFIGURAR EL BOTÓN SELECCIONADO (Activo / Primario) ---
         selectedButton.classList.add('active');
+        selectedButton.classList.remove('btn-secondary'); // Quita secundario
+        selectedButton.classList.add('btn-primary');    // Añade primario
+
+        // --- 2. CONFIGURAR EL OTRO BOTÓN (Inactivo / Secundario) ---
         otherButton.classList.remove('active');
+        otherButton.classList.remove('btn-primary');     // Quita primario
+        otherButton.classList.add('btn-secondary');     // Añade secundario
+
+        // ... (El resto de tu lógica de negocio) ...
 
         const selectedItem = productList.querySelector('.list-item.selected');
         if (selectedItem) {
             const itemId = selectedItem.innerText.split(' ')[0];
-            updateHistoricalData(itemId, period);
+            // Actualiza la UI (gráfico y métricas)
+            updateHistoricalData(itemId, period); 
         }
     }
 };
